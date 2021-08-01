@@ -1,7 +1,5 @@
 package List;
 
-import java.util.ArrayList;
-
 public class MyArrayList implements List {
 
     Object[] objects;
@@ -72,7 +70,7 @@ public class MyArrayList implements List {
     @Override
     public void clear() {
         this.objects = new Object[10];
-        this.size=0;
+        this.size = 0;
     }
 
     @Override
@@ -100,8 +98,8 @@ public class MyArrayList implements List {
     public int indexOf(Object value) {
         int noValueIndex = -1;
         for (int i = 0; i < this.size; i++) {
-            if(value==null){
-                if (this.objects[i]==null) {
+            if (value == null) {
+                if (this.objects[i] == null) {
                     return i;
                 }
             }
@@ -116,8 +114,8 @@ public class MyArrayList implements List {
     public int lastIndexOf(Object value) {
         int noValueIndex = -1;
         for (int i = size - 1; i >= 0; i--) {
-            if(value==null){
-                if (this.objects[i]==null) {
+            if (value == null) {
+                if (this.objects[i] == null) {
                     return i;
                 }
             }
@@ -160,14 +158,14 @@ public class MyArrayList implements List {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("[");
-        for (int i = 0; i <size ; i++) {
-            if(this.objects[i] == null){
+        for (int i = 0; i < size; i++) {
+            if (this.objects[i] == null) {
                 stringBuilder.append("null");
             }
-            if(this.objects[i] != null)  {
+            if (this.objects[i] != null) {
                 stringBuilder.append(this.objects[i].toString());
             }
-            if(i != size-1){
+            if (i != size - 1) {
                 stringBuilder.append(", ");
             }
         }

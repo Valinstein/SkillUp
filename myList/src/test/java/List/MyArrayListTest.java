@@ -194,6 +194,7 @@ class MyArrayListTest {
         list.add("second");
         assertNull(list.get(0));
     }
+
     @Test
     void getElementByIndexOutOfBoundsTest() {
         assertThrows(IndexOutOfBoundsException.class, () -> {
@@ -313,6 +314,7 @@ class MyArrayListTest {
         assertEquals(2, list.lastIndexOf("yellow"));
         assertEquals(4, list.lastIndexOf("black"));
     }
+
     @Test
     void lastIndexOfWithNonexistentElementTest() {
         list.add("green");
@@ -425,51 +427,5 @@ class MyArrayListTest {
         assertEquals("[]", list.toString());
         list.add("first");
         assertEquals("[first]", list.toString());
-    }
-
-
-
-    @Test
-    void testAdd() {
-    }
-
-    @Test
-    void remove() {
-    }
-
-    @Test
-    void get() {
-    }
-
-    @Test
-    void set() {
-    }
-
-    @Test
-    void clear() {
-    }
-
-    @Test
-    void size() {
-    }
-
-    @Test
-    void isEmpty() {
-    }
-
-    @Test
-    void contains() {
-    }
-
-    @Test
-    void indexOf() {
-    }
-
-    @Test
-    void lastIndexOf() {
-    }
-
-    @Test
-    void testToString() {
     }
 }
