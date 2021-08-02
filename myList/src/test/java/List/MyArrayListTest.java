@@ -351,6 +351,7 @@ class MyArrayListTest {
     @Test
     void containsNotNullElementTest() {
         list.add("green");
+        list.add(null);
         list.add("white");
         list.add("yellow");
 
