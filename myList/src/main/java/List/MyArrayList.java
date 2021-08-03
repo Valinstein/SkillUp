@@ -1,5 +1,7 @@
 package List;
 
+import java.util.Objects;
+
 public class MyArrayList implements List {
 
     private static final int DEFAULT_CAPACITY = 10;
@@ -11,43 +13,36 @@ public class MyArrayList implements List {
         this(DEFAULT_CAPACITY);
     }
 
-    public MyArrayList(int capacity){
+    public MyArrayList(int capacity) {
         objects = new Object[capacity];
         size = 0;
     }
 
-
     @Override
     public void add(Object value) {
-        arrayExtension();
-        objects[size] = value;
-        size++;
+        add(value, size);
     }
 
     @Override
     public void add(Object value, int index) {
-        indexOutOfBoundsExceptionCheck(index);
+        indexOutOfRangeCheck(index);
         arrayExtension();
-        if (size != 0) {
-            add(objects[size - 1]);
-            for (int i = size - 2; i > index; i--) {
-                objects[i] = objects[i - 1];
-            }
-            objects[index] = value;
+        if (size != 0 && index != size) {
+            add(this.objects[size - 1]);
+            if (size - 2 - index >= 0) System.arraycopy(objects, index, objects, index + 1, size - 2 - index);
+            this.objects[index] = value;
         } else {
-            add(value);
+            objects[size] = value;
+            size++;
         }
     }
 
     @Override
     public Object remove(int index) {
-        if (size == 0) {
-            throw new IndexOutOfBoundsException();
-        }
         indexOutOfBoundsExceptionCheck(index);
         Object removedObject = objects[index];
-        for (int i = index; i < size - 1; i++) {
-            objects[i] = objects[i + 1];
+        if (size - 1 - index >= 0) {
+            System.arraycopy(objects, index + 1, objects, index, size - 1 - index);
         }
         size--;
         return removedObject;
@@ -55,18 +50,12 @@ public class MyArrayList implements List {
 
     @Override
     public Object get(int index) {
-        if (size == 0) {
-            throw new IndexOutOfBoundsException();
-        }
         indexOutOfBoundsExceptionCheck(index);
         return objects[index];
     }
 
     @Override
     public Object set(Object value, int index) {
-        if (size == 0) {
-            throw new IndexOutOfBoundsException();
-        }
         indexOutOfBoundsExceptionCheck(index);
         Object oldObject = objects[index];
         objects[index] = value;
@@ -86,64 +75,45 @@ public class MyArrayList implements List {
 
     @Override
     public boolean isEmpty() {
-        return size==0;
+        return size == 0;
     }
 
     @Override
     public boolean contains(Object value) {
-        if (indexOf(value) == -1) {
-            return false;
-    }
-        return true;
+        return indexOf(value) != -1;
     }
 
     @Override
     public int indexOf(Object value) {
-        int noValueIndex = -1;
         for (int i = 0; i < size; i++) {
-            if (value == null) {
-                if (objects[i] == null) {
-                    return i;
-                }
-            }
-            if (objects[i].equals(value)) {
+            if (Objects.equals(value, objects[i])) {
                 return i;
             }
         }
-        return noValueIndex;
+        return -1;
     }
 
     @Override
     public int lastIndexOf(Object value) {
-        int noValueIndex = -1;
         for (int i = size - 1; i >= 0; i--) {
-            if (value == null) {
-                if (objects[i] == null) {
-                    return i;
-                }
-            }
-            if (objects[i].equals(value)) {
+            if (Objects.equals(value, objects[i])) {
                 return i;
             }
         }
-        return noValueIndex;
+        return -1;
     }
 
     private void indexOutOfBoundsExceptionCheck(int index) throws IndexOutOfBoundsException {
-        if (index < 0 || index > size) {
-            throw new IndexOutOfBoundsException();
+        if (size == 0) {
+            throw new IndexOutOfBoundsException("the List is empty");
         }
+        indexOutOfRangeCheck(index);
     }
 
-
-    private int indexOfLastElement() {
-        int lastElement = 0;
-        for (int i = objects.length - 1; i > 0; i--) {
-            if (!objects[i].equals(null)) {
-                lastElement = i;
-            }
+    private void indexOutOfRangeCheck(int index) throws IndexOutOfBoundsException  {
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("The index is out of range");
         }
-        return lastElement;
     }
 
     private void arrayExtension() {
@@ -160,7 +130,7 @@ public class MyArrayList implements List {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("[");
         for (int i = 0; i < size; i++) {
-                stringBuilder.append(objects[i]);
+            stringBuilder.append(objects[i]);
             if (i != size - 1) {
                 stringBuilder.append(", ");
             }
