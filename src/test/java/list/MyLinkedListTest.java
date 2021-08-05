@@ -1,5 +1,8 @@
-import static org.junit.jupiter.api.Assertions.*;
+package list;
 
-class MyLinkedListTest {
-
+class MyLinkedListTest extends AbstractListTest {
+    @Override
+    List getList() {
+        return new MyLinkedList();
+    }
 }

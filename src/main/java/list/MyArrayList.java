@@ -1,13 +1,13 @@
-package List;
+package list;
 
+import java.util.Iterator;
 import java.util.Objects;
 
-public class MyArrayList implements List {
+public class MyArrayList extends AbstractList {
 
     private static final int DEFAULT_CAPACITY = 10;
 
     private Object[] objects;
-    private int size;
 
     public MyArrayList() {
         this(DEFAULT_CAPACITY);
@@ -15,7 +15,6 @@ public class MyArrayList implements List {
 
     public MyArrayList(int capacity) {
         objects = new Object[capacity];
-        size = 0;
     }
 
     @Override
@@ -25,38 +24,37 @@ public class MyArrayList implements List {
 
     @Override
     public void add(Object value, int index) {
-        indexOutOfRangeCheck(index);
-        arrayExtension();
-        if (size != 0 && index != size) {
-            add(this.objects[size - 1]);
-            if (size - 2 - index >= 0) System.arraycopy(objects, index, objects, index + 1, size - 2 - index);
-            this.objects[index] = value;
-        } else {
-            objects[size] = value;
-            size++;
+        validateIndexForAdd(index);
+        ensureCapacity();
+
+        if(index != size) {
+            System.arraycopy(objects, index, objects, index + 1, size);
         }
+        objects[index] = value;
+        size++;
     }
 
     @Override
     public Object remove(int index) {
-        indexOutOfBoundsExceptionCheck(index);
+        validateIndex(index);
         Object removedObject = objects[index];
         if (size - 1 - index >= 0) {
             System.arraycopy(objects, index + 1, objects, index, size - 1 - index);
         }
+        objects[size-1] = null;
         size--;
         return removedObject;
     }
 
     @Override
     public Object get(int index) {
-        indexOutOfBoundsExceptionCheck(index);
+        validateIndex(index);
         return objects[index];
     }
 
     @Override
     public Object set(Object value, int index) {
-        indexOutOfBoundsExceptionCheck(index);
+        validateIndex(index);
         Object oldObject = objects[index];
         objects[index] = value;
         return oldObject;
@@ -64,24 +62,12 @@ public class MyArrayList implements List {
 
     @Override
     public void clear() {
-        objects = new Object[10];
+        for (int i = 0; i < size; i++) {
+            objects[i] = null;
+        }
         size = 0;
     }
 
-    @Override
-    public int size() {
-        return size;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
-    @Override
-    public boolean contains(Object value) {
-        return indexOf(value) != -1;
-    }
 
     @Override
     public int indexOf(Object value) {
@@ -103,20 +89,7 @@ public class MyArrayList implements List {
         return -1;
     }
 
-    private void indexOutOfBoundsExceptionCheck(int index) throws IndexOutOfBoundsException {
-        if (size == 0) {
-            throw new IndexOutOfBoundsException("the List is empty");
-        }
-        indexOutOfRangeCheck(index);
-    }
-
-    private void indexOutOfRangeCheck(int index) throws IndexOutOfBoundsException  {
-        if (index < 0 || index > size) {
-            throw new IndexOutOfBoundsException("The index is out of range");
-        }
-    }
-
-    private void arrayExtension() {
+    private void ensureCapacity() {
         if (size == objects.length) {
             int newSize = (int) (objects.length * 1.5 + 1);
             Object[] newArray = new Object[newSize];
@@ -137,5 +110,25 @@ public class MyArrayList implements List {
         }
         stringBuilder.append("]");
         return stringBuilder.toString();
+    }
+
+    /**
+     * Returns an iterator over elements of type {@code T}.
+     *
+     * @return an Iterator.
+     */
+    @Override
+    public Iterator iterator() {
+        return new Iterator() {
+            @Override
+            public boolean hasNext() {
+                return false;
+            }
+
+            @Override
+            public Object next() {
+                return null;
+            }
+        };
     }
 }
