@@ -111,24 +111,4 @@ public class MyArrayList extends AbstractList {
         stringBuilder.append("]");
         return stringBuilder.toString();
     }
-
-    /**
-     * Returns an iterator over elements of type {@code T}.
-     *
-     * @return an Iterator.
-     */
-    @Override
-    public Iterator iterator() {
-        return new Iterator() {
-            @Override
-            public boolean hasNext() {
-                return false;
-            }
-
-            @Override
-            public Object next() {
-                return null;
-            }
-        };
-    }
 }

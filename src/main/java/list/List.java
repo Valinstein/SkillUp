@@ -1,6 +1,6 @@
 package list;
 
-public interface List extends Iterable{
+public interface List{
     // add value to the end of the list
     void add(Object value);
 
