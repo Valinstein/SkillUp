@@ -1,6 +1,5 @@
 package List;
 
-import java.util.LinkedList;
 
 public class MyLinkedList implements List{
 

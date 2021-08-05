@@ -117,43 +117,6 @@ class MyArrayListTest {
         assertEquals(2, list.size());
     }
 
-    //    @Test
-//    void removeFirstLastAndMiddleElementByElementTest() {
-//        list.add("green");
-//        list.add("white");
-//        list.add("yellow");
-//        list.add("white");
-//        list.add("black");
-//        assertEquals(5, list.size());
-//
-//        assertTrue(list.remove("green"));
-//        assertTrue(list.remove("black"));
-//        assertTrue(list.remove("yellow"));
-//
-//        assertEquals(2, list.size());
-//
-//        assertEquals("white", list.get(0));
-//        assertEquals("white", list.get(1));
-//    }
-//
-//    @Test
-//    void removeNonexistentElementByElementTest() {
-//        list.add("green");
-//        list.add("white");
-//        list.add("yellow");
-//        assertEquals(3, list.size());
-//
-//        assertFalse(list.remove("red"));
-//    }
-//
-//    @Test
-//    void removeNullElementTest() {
-//        list.add(null);
-//        list.add("hello");
-//        assertEquals(2, list.size());
-//        assertTrue(list.remove(null));
-//        assertEquals(1, list.size());
-//    }
     @Test
     void removeElementByIndexOutOfBoundsTest() {
         assertThrows(IndexOutOfBoundsException.class, () -> {
